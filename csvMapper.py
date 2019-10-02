@@ -34,15 +34,13 @@ def markerMap(info, mapTitle):
 def heatMap(info, mapTitle):
     usMap = folium.Map(location=[40,-100], tiles='Stamen Terrain', zoom_start = 4, control_scale=True)
 
-    #for each row in the Starbucks dataset, plot the corresponding lat/lon
+    #for each row in the dataset, plot the corresponding lat/lon
     for i, row in info.iterrows():
         folium.CircleMarker((row.latitude,row.longitude), radius=3, weight=2, color='red', fill_color='red', fill_opacity=0.5).add_to(usMap)
     
     #add the heatmap. The core parameters are:
-    #--data: a list of points of the form (latitude, longitude) indicating locations of Starbucks stores
-
-    #--radius: how big each circle will be around each Starbucks store
-
+    #--data: a list of points of the form (latitude, longitude) indicating locations
+    #--radius: how big each circle will be around each point
     #--blur: the degree to which the circles blend together in the heatmap
     usMap.add_child(plugins.HeatMap(data=info[['latitude','longitude']].values, radius=25, blur=10))
     
